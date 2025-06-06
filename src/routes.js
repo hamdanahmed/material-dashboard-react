@@ -1,49 +1,44 @@
 /**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
+ =========================================================
+ * Fraud Detection System - FDS - v2.2.0
  =========================================================
 
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
+ * Product Page: https://www.creative-tim.com/product/material-dashboard-react
+ * Copyright 2023 Creative Tim (https://www.creative-tim.com)
 
-/** 
-  All of the routes for the Material Dashboard 2 React are added here,
-  You can add a new route, customize the routes and delete the routes here.
+ Coded by www.creative-tim.com
 
-  Once you add a new route on this file it will be visible automatically on
-  the Sidenav.
+ ==========================================================
+ */
 
-  For adding a new route you can follow the existing routes in the routes array.
-  1. The `type` key with the `collapse` value is used for a route.
-  2. The `type` key with the `title` value is used for a title inside the Sidenav. 
-  3. The `type` key with the `divider` value is used for a divider between Sidenav items.
-  4. The `name` key is used for the name of the route on the Sidenav.
-  5. The `key` key is used for the key of the route (It will help you with the key prop inside a loop).
-  6. The `icon` key is used for the icon of the route on the Sidenav, you have to add a node.
-  7. The `collapse` key is used for making a collapsible item on the Sidenav that has other routes
-  inside (nested routes), you need to pass the nested routes inside an array as a value for the `collapse` key.
-  8. The `route` key is used to store the route location which is used for the react router.
-  9. The `href` key is used to store the external links location.
-  10. The `title` key is only for the item with the type of `title` and its used for the title text on the Sidenav.
-  10. The `component` key is used to store the component of its route.
-*/
+/**
+ All of the routes for the Fraud Detection System - FDS are added here.
+ You can add a new route, customize routes, or delete routes here.
 
-// Material Dashboard 2 React layouts
-import Dashboard from "layouts/dashboard";
-import Tables from "layouts/tables";
-import Billing from "layouts/billing";
-import RTL from "layouts/rtl";
-import Notifications from "layouts/notifications";
-import Profile from "layouts/profile";
-import SignIn from "layouts/authentication/sign-in";
-import SignUp from "layouts/authentication/sign-up";
+ Once you add a new route in this file it will automatically appear
+ in the Sidenav.
+
+ For adding a new route you can follow the existing routes in the routes array:
+ 1. The `type` key with value `"collapse"` is used for a route.
+ 2. The `type` key with value `"title"` is used for a section header in the Sidenav.
+ 3. The `type` key with value `"divider"` is used for a divider in the Sidenav.
+ 4. The `name` key is used for the display name of the route in the Sidenav.
+ 5. The `key` key is used as the unique key prop inside a loop.
+ 6. The `icon` key is used to show an icon next to the name in the Sidenav.
+ 7. The `route` key is used as the React Router path (e.g. `/dashboard`).
+ 8. The `component` key is the React element to render at that route.
+ */
+
+// Fraud Detection System – FDS layouts
+import Dashboard      from "layouts/dashboard";
+import Tables         from "layouts/tables";
+import Rules          from "layouts/rules";          // ← NEW: import our Rules layout
+import Billing        from "layouts/billing";
+import RTL            from "layouts/rtl";
+import Notifications  from "layouts/notifications";
+import Profile        from "layouts/profile";
+import SignIn         from "layouts/authentication/sign-in";
+import SignUp         from "layouts/authentication/sign-up";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -59,11 +54,19 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Tables",
-    key: "tables",
+    name: "Transactions",
+    key: "transactions",
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/tables",
     component: <Tables />,
+  },
+  {
+    type: "collapse",
+    name: "Rules",                       // ← NEW “Rules” entry
+    key: "rules",
+    icon: <Icon fontSize="small">gavel</Icon>,
+    route: "/rules",
+    component: <Rules />,
   },
   {
     type: "collapse",

@@ -36,14 +36,14 @@ import {
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 
-// Material Dashboard 2 React components
+// Fraud Detection System - FDS components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
 // DefaultLineChart configurations
 import configs from "examples/Charts/LineCharts/DefaultLineChart/configs";
 
-// Material Dashboard 2 React base styles
+// Fraud Detection System - FDS base styles
 import colors from "assets/theme/base/colors";
 
 ChartJS.register(

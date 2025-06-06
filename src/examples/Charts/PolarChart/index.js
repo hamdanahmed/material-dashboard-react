@@ -26,7 +26,7 @@ import { PolarArea } from "react-chartjs-2";
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 
-// Material Dashboard 2 React components
+// Fraud Detection System - FDS components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
