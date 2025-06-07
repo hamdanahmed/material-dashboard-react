@@ -1,5 +1,3 @@
-// src/graphql/queries/getRules.js
-
 import { gql } from "@apollo/client";
 
 export const GET_ALL_RULES = gql`
@@ -14,6 +12,29 @@ export const GET_ALL_RULES = gql`
                     description
                     isActive
                     matchType
+                    Parameters {
+                        ... on AmountRuleParameter {
+                            amount {
+                                Value
+                                Operator
+                            }
+                        }
+                        ... on TransactionTypeRuleParameter {
+                            transactionType
+                        }
+                        ... on TransactionStatusRuleParameter {
+                            transactionStatus
+                        }
+                        ... on ReviewStatusRuleParameter {
+                            reviewStatus
+                        }
+                        ... on AdditionalInfoTypeRuleParameter {
+                            additionalInfoType
+                        }
+                        ... on AdditionalInfoStatusRuleParameter {
+                            additionalInfoStatus
+                        }
+                    }
                     analystID
                 }
             }

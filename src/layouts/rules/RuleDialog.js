@@ -24,95 +24,91 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
 // ────────────────────────────────────────────────────────────────────────
-// SHARED STYLES FOR ALL TEXTFIELD / SELECT CONTROLS
-// (lets the label float normally, but makes the field taller)
-// ────────────────────────────────────────────────────────────────────────
 const fieldSx = {
     "& .MuiOutlinedInput-root": {
-        height: "56px",               // total height of the outlined box
+        height: "56px",
         "& .MuiOutlinedInput-notchedOutline": {
-            top: 0,                     // pull the notch up so no extra gap
+            top: 0,
         },
     },
     "& .MuiOutlinedInput-input": {
-        padding: "18.5px 14px",       // center the text & leave room for the label
+        padding: "18.5px 14px",
     },
 };
 
-// ─────────────── ENUM → LABEL MAPPINGS (same as before) ────────────────────
 const MATCH_TYPES = [
     { value: "MATCH_TYPE_UNSPECIFIED", label: "—" },
-    { value: "MATCH_TYPE_ALL",         label: "ALL" },
-    { value: "MATCH_TYPE_ANY",         label: "ANY" },
+    { value: "MATCH_TYPE_ALL", label: "ALL" },
+    { value: "MATCH_TYPE_ANY", label: "ANY" },
 ];
 const PARAM_TYPE_OPTIONS = [
-    { value: "RULE_PARAMETER_TYPE_AMOUNT",               label: "Amount" },
-    { value: "RULE_PARAMETER_TYPE_TRANSACTION_TYPE",      label: "Transaction Type" },
-    { value: "RULE_PARAMETER_TYPE_TRANSACTION_STATUS",    label: "Transaction Status" },
-    { value: "RULE_PARAMETER_TYPE_REVIEW_STATUS",         label: "Review Status" },
+    { value: "RULE_PARAMETER_TYPE_AMOUNT", label: "Amount" },
+    { value: "RULE_PARAMETER_TYPE_TRANSACTION_TYPE", label: "Transaction Type" },
+    { value: "RULE_PARAMETER_TYPE_TRANSACTION_STATUS", label: "Transaction Status" },
+    { value: "RULE_PARAMETER_TYPE_REVIEW_STATUS", label: "Review Status" },
     { value: "RULE_PARAMETER_TYPE_ADDITIONAL_INFO_STATUS", label: "Additional Info Status" },
-    { value: "RULE_PARAMETER_TYPE_ADDITIONAL_INFO_TYPE",  label: "Additional Info Type" },
+    { value: "RULE_PARAMETER_TYPE_ADDITIONAL_INFO_TYPE", label: "Additional Info Type" },
 ];
 const OPERATOR_OPTIONS = [
-    { value: "OPERATOR_UNSPECIFIED",   label: "—" },
-    { value: "OPERATOR_EQUAL",         label: "=" },
-    { value: "OPERATOR_NOT_EQUAL",     label: "≠" },
-    { value: "OPERATOR_GREATER_THAN",  label: ">" },
+    { value: "OPERATOR_UNSPECIFIED", label: "—" },
+    { value: "OPERATOR_EQUAL", label: "=" },
+    { value: "OPERATOR_NOT_EQUAL", label: "≠" },
+    { value: "OPERATOR_GREATER_THAN", label: ">" },
     { value: "OPERATOR_GREATER_EQUAL", label: "≥" },
-    { value: "OPERATOR_LESS_THAN",     label: "<" },
-    { value: "OPERATOR_LESS_EQUAL",    label: "≤" },
-    { value: "OPERATOR_IN",            label: "IN" },
+    { value: "OPERATOR_LESS_THAN", label: "<" },
+    { value: "OPERATOR_LESS_EQUAL", label: "≤" },
+    { value: "OPERATOR_IN", label: "IN" },
 ];
 const TRANSACTION_TYPE_OPTIONS = [
     { value: "TRANSACTION_TYPE_UNSPECIFIED", label: "—" },
-    { value: "TRANSACTION_TYPE_DEPOSIT",     label: "Deposit" },
-    { value: "TRANSACTION_TYPE_WITHDRAWAL",  label: "Withdrawal" },
+    { value: "TRANSACTION_TYPE_DEPOSIT", label: "Deposit" },
+    { value: "TRANSACTION_TYPE_WITHDRAWAL", label: "Withdrawal" },
 ];
 const TRANSACTION_STATUS_OPTIONS = [
     { value: "TRANSACTION_STATUS_UNSPECIFIED", label: "—" },
-    { value: "TRANSACTION_STATUS_PENDING",     label: "Pending" },
-    { value: "TRANSACTION_STATUS_COMPLETED",   label: "Completed" },
-    { value: "TRANSACTION_STATUS_FAILED",      label: "Failed" },
+    { value: "TRANSACTION_STATUS_PENDING", label: "Pending" },
+    { value: "TRANSACTION_STATUS_COMPLETED", label: "Completed" },
+    { value: "TRANSACTION_STATUS_FAILED", label: "Failed" },
 ];
 const REVIEW_STATUS_OPTIONS = [
-    { value: "REVIEW_STATUS_UNSPECIFIED",  label: "—" },
-    { value: "REVIEW_STATUS_FLAGGED",      label: "Flagged" },
-    { value: "REVIEW_STATUS_PENDING",      label: "Pending Review" },
-    { value: "REVIEW_STATUS_IN_REVIEW",    label: "In Review" },
-    { value: "REVIEW_STATUS_ESCALATED",    label: "Escalated" },
-    { value: "REVIEW_STATUS_REJECTED",     label: "Rejected" },
-    { value: "REVIEW_STATUS_APPROVED",     label: "Approved" },
-    { value: "REVIEW_STATUS_COMPLETED",    label: "Completed Review" },
+    { value: "REVIEW_STATUS_UNSPECIFIED", label: "—" },
+    { value: "REVIEW_STATUS_FLAGGED", label: "Flagged" },
+    { value: "REVIEW_STATUS_PENDING", label: "Pending Review" },
+    { value: "REVIEW_STATUS_IN_REVIEW", label: "In Review" },
+    { value: "REVIEW_STATUS_ESCALATED", label: "Escalated" },
+    { value: "REVIEW_STATUS_REJECTED", label: "Rejected" },
+    { value: "REVIEW_STATUS_APPROVED", label: "Approved" },
+    { value: "REVIEW_STATUS_COMPLETED", label: "Completed Review" },
 ];
 const ADDITIONAL_INFO_STATUS_OPTIONS = [
     { value: "ADDITIONAL_INFO_STATUS_UNSPECIFIED", label: "—" },
-    { value: "ADDITIONAL_INFO_STATUS_REQUESTED",   label: "Requested" },
-    { value: "ADDITIONAL_INFO_STATUS_RECEIVED",    label: "Received" },
-    { value: "ADDITIONAL_INFO_STATUS_IN_REVIEW",   label: "In Review" },
-    { value: "ADDITIONAL_INFO_STATUS_COMPLETED",   label: "Completed" },
+    { value: "ADDITIONAL_INFO_STATUS_REQUESTED", label: "Requested" },
+    { value: "ADDITIONAL_INFO_STATUS_RECEIVED", label: "Received" },
+    { value: "ADDITIONAL_INFO_STATUS_IN_REVIEW", label: "In Review" },
+    { value: "ADDITIONAL_INFO_STATUS_COMPLETED", label: "Completed" },
 ];
 const ADDITIONAL_INFO_TYPE_OPTIONS = [
-    { value: "ADDITIONAL_INFO_TYPE_UNSPECIFIED",     label: "—" },
-    { value: "ADDITIONAL_INFO_TYPE_WAIVER",          label: "Waiver" },
+    { value: "ADDITIONAL_INFO_TYPE_UNSPECIFIED", label: "—" },
+    { value: "ADDITIONAL_INFO_TYPE_WAIVER", label: "Waiver" },
     { value: "ADDITIONAL_INFO_TYPE_SOURCE_OF_FUNDS", label: "Source of Funds" },
-    { value: "ADDITIONAL_INFO_TYPE_OTHER",           label: "Other" },
+    { value: "ADDITIONAL_INFO_TYPE_OTHER", label: "Other" },
 ];
 
 // ────────────────────────────────────────────────────────────────────────
 export default function RuleDialog({
                                        open,
                                        onClose,
-                                       existingRule,     // if non‐null, we’re editing; otherwise, adding
+                                       existingRule,
                                        onSaveSuccess,
                                    }) {
-    const [name, setName]               = useState("");
+    const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [isActive, setIsActive]       = useState(true);
-    const [matchType, setMatchType]     = useState("MATCH_TYPE_ALL");
-    const [analystID, setAnalystID]     = useState("");
-    const [parameters, setParameters]   = useState([]);
-    const [saving, setSaving]           = useState(false);
-    const [errorMsg, setErrorMsg]       = useState("");
+    const [isActive, setIsActive] = useState(true);
+    const [matchType, setMatchType] = useState("MATCH_TYPE_ALL");
+    const [analystID, setAnalystID] = useState("");
+    const [parameters, setParameters] = useState([]);
+    const [saving, setSaving] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
 
     const generateParamId = () => Math.random().toString(36).substr(2, 9);
 
@@ -124,71 +120,75 @@ export default function RuleDialog({
             setIsActive(existingRule.isActive ?? true);
             setMatchType(existingRule.matchType || "MATCH_TYPE_ALL");
             setAnalystID(existingRule.analystID || "");
-            const existingParams = (existingRule.parameters || []).map((paramObj) => {
+
+            // --- Fixed: Use existingRule.Parameters, map GraphQL union to editable array
+            const unionParams = (existingRule.Parameters || []).map((param) => {
                 const id = generateParamId();
-                if (paramObj.amount) {
+                if (param.amount) {
                     return {
                         id,
-                        type:      "RULE_PARAMETER_TYPE_AMOUNT",
-                        operator:  paramObj.amount.operator || "OPERATOR_UNSPECIFIED",
-                        value:     paramObj.amount.value || 0,
+                        type: "RULE_PARAMETER_TYPE_AMOUNT",
+                        operator: param.amount.Operator || "OPERATOR_UNSPECIFIED",
+                        value: param.amount.Value || 0,
                         enumValue: "",
                     };
                 }
-                if (paramObj.transactionTypeRule) {
+                if (param.transactionType) {
                     return {
                         id,
-                        type:      "RULE_PARAMETER_TYPE_TRANSACTION_TYPE",
-                        operator:  "",
-                        value:     0,
-                        enumValue: paramObj.transactionTypeRule,
+                        type: "RULE_PARAMETER_TYPE_TRANSACTION_TYPE",
+                        operator: "",
+                        value: 0,
+                        enumValue: param.transactionType,
                     };
                 }
-                if (paramObj.transactionStatusRule) {
+                if (param.transactionStatus) {
                     return {
                         id,
-                        type:      "RULE_PARAMETER_TYPE_TRANSACTION_STATUS",
-                        operator:  "",
-                        value:     0,
-                        enumValue: paramObj.transactionStatusRule,
+                        type: "RULE_PARAMETER_TYPE_TRANSACTION_STATUS",
+                        operator: "",
+                        value: 0,
+                        enumValue: param.transactionStatus,
                     };
                 }
-                if (paramObj.reviewStatusRule) {
+                if (param.reviewStatus) {
                     return {
                         id,
-                        type:      "RULE_PARAMETER_TYPE_REVIEW_STATUS",
-                        operator:  "",
-                        value:     0,
-                        enumValue: paramObj.reviewStatusRule,
+                        type: "RULE_PARAMETER_TYPE_REVIEW_STATUS",
+                        operator: "",
+                        value: 0,
+                        enumValue: param.reviewStatus,
                     };
                 }
-                if (paramObj.additionalInfoStatusRule) {
+                if (param.additionalInfoStatus) {
                     return {
                         id,
-                        type:      "RULE_PARAMETER_TYPE_ADDITIONAL_INFO_STATUS",
-                        operator:  "",
-                        value:     0,
-                        enumValue: paramObj.additionalInfoStatusRule,
+                        type: "RULE_PARAMETER_TYPE_ADDITIONAL_INFO_STATUS",
+                        operator: "",
+                        value: 0,
+                        enumValue: param.additionalInfoStatus,
                     };
                 }
-                if (paramObj.additionalInfoTypeRule) {
+                if (param.additionalInfoType) {
                     return {
                         id,
-                        type:      "RULE_PARAMETER_TYPE_ADDITIONAL_INFO_TYPE",
-                        operator:  "",
-                        value:     0,
-                        enumValue: paramObj.additionalInfoTypeRule,
+                        type: "RULE_PARAMETER_TYPE_ADDITIONAL_INFO_TYPE",
+                        operator: "",
+                        value: 0,
+                        enumValue: param.additionalInfoType,
                     };
                 }
+                // fallback (shouldn't be needed)
                 return {
                     id,
-                    type:      "RULE_PARAMETER_TYPE_AMOUNT",
-                    operator:  "OPERATOR_UNSPECIFIED",
-                    value:     0,
+                    type: "RULE_PARAMETER_TYPE_AMOUNT",
+                    operator: "OPERATOR_UNSPECIFIED",
+                    value: 0,
                     enumValue: "",
                 };
             });
-            setParameters(existingParams);
+
+            setParameters(unionParams);
             setErrorMsg("");
         } else {
             setName("");
@@ -206,10 +206,10 @@ export default function RuleDialog({
         setParameters((prev) => [
             ...prev,
             {
-                id:        generateParamId(),
-                type:      "RULE_PARAMETER_TYPE_AMOUNT",
-                operator:  "OPERATOR_UNSPECIFIED",
-                value:     0,
+                id: generateParamId(),
+                type: "RULE_PARAMETER_TYPE_AMOUNT",
+                operator: "OPERATOR_UNSPECIFIED",
+                value: 0,
                 enumValue: "",
             },
         ]);
@@ -237,21 +237,13 @@ export default function RuleDialog({
 
     const handleAmountFieldChange = (paramId, field, newValue) => {
         setParameters((prev) =>
-            prev.map((p) =>
-                p.id === paramId
-                    ? { ...p, [field]: newValue }
-                    : p
-            )
+            prev.map((p) => (p.id === paramId ? { ...p, [field]: newValue } : p))
         );
     };
 
     const handleEnumFieldChange = (paramId, newEnumValue) => {
         setParameters((prev) =>
-            prev.map((p) =>
-                p.id === paramId
-                    ? { ...p, enumValue: newEnumValue }
-                    : p
-            )
+            prev.map((p) => (p.id === paramId ? { ...p, enumValue: newEnumValue } : p))
         );
     };
 
@@ -280,11 +272,13 @@ export default function RuleDialog({
                         };
                     case "RULE_PARAMETER_TYPE_ADDITIONAL_INFO_STATUS":
                         return {
-                            additionalInfoStatusRule: p.enumValue || "ADDITIONAL_INFO_STATUS_UNSPECIFIED",
+                            additionalInfoStatusRule:
+                                p.enumValue || "ADDITIONAL_INFO_STATUS_UNSPECIFIED",
                         };
                     case "RULE_PARAMETER_TYPE_ADDITIONAL_INFO_TYPE":
                         return {
-                            additionalInfoTypeRule: p.enumValue || "ADDITIONAL_INFO_TYPE_UNSPECIFIED",
+                            additionalInfoTypeRule:
+                                p.enumValue || "ADDITIONAL_INFO_TYPE_UNSPECIFIED",
                         };
                     default:
                         return null;
@@ -301,10 +295,10 @@ export default function RuleDialog({
         const payload = {
             analystId: analystID.trim(),
             rule: {
-                name:        name.trim(),
+                name: name.trim(),
                 description: description.trim(),
                 isActive,
-                parameters:  buildRuleParametersForPayload(),
+                parameters: buildRuleParametersForPayload(),
                 matchType,
             },
         };
@@ -344,7 +338,7 @@ export default function RuleDialog({
             sx={{ p: 2, mb: 2, backgroundColor: (theme) => theme.palette.background.paper }}
         >
             <Grid container spacing={2} alignItems="center">
-                {/* ── 1) Parameter Type ──────────────────────────────────────── */}
+                {/* Parameter Type */}
                 <Grid item xs={12} sm={3}>
                     <TextField
                         select
@@ -363,7 +357,7 @@ export default function RuleDialog({
                     </TextField>
                 </Grid>
 
-                {/* ── 2) Amount parameter (Operator + Value) ─────────────────── */}
+                {/* Amount parameter */}
                 {p.type === "RULE_PARAMETER_TYPE_AMOUNT" && (
                     <>
                         <Grid item xs={12} sm={2}>
@@ -373,7 +367,9 @@ export default function RuleDialog({
                                 size="medium"
                                 label="Operator"
                                 value={p.operator}
-                                onChange={(e) => handleAmountFieldChange(p.id, "operator", e.target.value)}
+                                onChange={(e) =>
+                                    handleAmountFieldChange(p.id, "operator", e.target.value)
+                                }
                                 sx={fieldSx}
                             >
                                 {OPERATOR_OPTIONS.map((opt) => (
@@ -390,14 +386,16 @@ export default function RuleDialog({
                                 label="Value"
                                 type="number"
                                 value={p.value}
-                                onChange={(e) => handleAmountFieldChange(p.id, "value", e.target.value)}
+                                onChange={(e) =>
+                                    handleAmountFieldChange(p.id, "value", e.target.value)
+                                }
                                 sx={fieldSx}
                             />
                         </Grid>
                     </>
                 )}
 
-                {/* ── 3) Transaction Type parameter ──────────────────────────── */}
+                {/* Transaction Type parameter */}
                 {p.type === "RULE_PARAMETER_TYPE_TRANSACTION_TYPE" && (
                     <Grid item xs={12} sm={4}>
                         <TextField
@@ -418,7 +416,7 @@ export default function RuleDialog({
                     </Grid>
                 )}
 
-                {/* ── 4) Transaction Status parameter ────────────────────────── */}
+                {/* Transaction Status parameter */}
                 {p.type === "RULE_PARAMETER_TYPE_TRANSACTION_STATUS" && (
                     <Grid item xs={12} sm={4}>
                         <TextField
@@ -439,7 +437,7 @@ export default function RuleDialog({
                     </Grid>
                 )}
 
-                {/* ── 5) Review Status parameter ────────────────────────────── */}
+                {/* Review Status parameter */}
                 {p.type === "RULE_PARAMETER_TYPE_REVIEW_STATUS" && (
                     <Grid item xs={12} sm={4}>
                         <TextField
@@ -460,7 +458,7 @@ export default function RuleDialog({
                     </Grid>
                 )}
 
-                {/* ── 6) Additional Info Status parameter ────────────────────── */}
+                {/* Additional Info Status parameter */}
                 {p.type === "RULE_PARAMETER_TYPE_ADDITIONAL_INFO_STATUS" && (
                     <Grid item xs={12} sm={4}>
                         <TextField
@@ -481,7 +479,7 @@ export default function RuleDialog({
                     </Grid>
                 )}
 
-                {/* ── 7) Additional Info Type parameter ──────────────────────── */}
+                {/* Additional Info Type parameter */}
                 {p.type === "RULE_PARAMETER_TYPE_ADDITIONAL_INFO_TYPE" && (
                     <Grid item xs={12} sm={4}>
                         <TextField
@@ -502,7 +500,7 @@ export default function RuleDialog({
                     </Grid>
                 )}
 
-                {/* ── 8) Remove Parameter Button ──────────────────────────────── */}
+                {/* Remove Parameter Button */}
                 <Grid item xs={12} sm={1}>
                     <Box textAlign="right">
                         <Button
@@ -520,7 +518,6 @@ export default function RuleDialog({
         </Paper>
     );
 
-    // ────────────────────────────────────────────────────────────────────────
     return (
         <Dialog open={open} onClose={onClose} maxWidth="lg" fullWidth>
             <DialogTitle>
@@ -533,7 +530,7 @@ export default function RuleDialog({
 
             <DialogContent dividers>
                 <MDBox px={2} py={1}>
-                    {/* ── Top Row: Name / Description ───────────────────────────── */}
+                    {/* Top Row: Name / Description */}
                     <Grid container spacing={2} alignItems="center">
                         <Grid item xs={12} sm={6}>
                             <TextField
@@ -561,7 +558,7 @@ export default function RuleDialog({
 
                     <MDBox mt={2} />
 
-                    {/* ── Next Row: Active / Match Type / Analyst ID ───────────── */}
+                    {/* Next Row: Active / Match Type / Analyst ID */}
                     <Grid container spacing={2} alignItems="center">
                         <Grid item xs={12} sm={4}>
                             <FormControlLabel
@@ -606,7 +603,6 @@ export default function RuleDialog({
                         </Grid>
                     </Grid>
 
-                    {/* ──────────────────────────────────────────────────────────── */}
                     <Box mt={4} mb={1}>
                         <MDTypography variant="subtitle1" fontWeight="medium">
                             Parameters
@@ -631,7 +627,6 @@ export default function RuleDialog({
                         </Box>
                     </MDBox>
 
-                    {/* Show any save error */}
                     {errorMsg && (
                         <Box mt={2}>
                             <MDTypography variant="caption" color="error">
@@ -644,7 +639,7 @@ export default function RuleDialog({
 
             <Divider />
 
-            {/* ─── Save / Cancel Buttons ──────────────────────────────────────── */}
+            {/* Save / Cancel Buttons */}
             <DialogActions sx={{ pr: 3, pb: 2 }}>
                 <Button onClick={onClose} color="inherit" disabled={saving}>
                     Cancel
@@ -663,18 +658,18 @@ export default function RuleDialog({
 }
 
 RuleDialog.propTypes = {
-    open:          PropTypes.bool.isRequired,
-    onClose:       PropTypes.func.isRequired,
-    existingRule:  PropTypes.shape({
-        id:          PropTypes.string,
-        name:        PropTypes.string,
+    open: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    existingRule: PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
         description: PropTypes.string,
-        isActive:    PropTypes.bool,
-        matchType:   PropTypes.string,
-        analystID:   PropTypes.string,
-        parameters:  PropTypes.arrayOf(PropTypes.object),
-        createTime:  PropTypes.string,
-        updateTime:  PropTypes.string,
+        isActive: PropTypes.bool,
+        matchType: PropTypes.string,
+        analystID: PropTypes.string,
+        Parameters: PropTypes.arrayOf(PropTypes.object), // <-- note Parameters, not parameters!
+        createTime: PropTypes.string,
+        updateTime: PropTypes.string,
     }),
     onSaveSuccess: PropTypes.func.isRequired,
 };
